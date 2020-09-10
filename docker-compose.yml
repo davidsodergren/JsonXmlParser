@@ -1,0 +1,17 @@
+version: "3"
+services:
+  maven:
+    image: maven
+    volumes:
+      - $HOME/.m2:/root/.m2
+      - $PWD:/app
+    working_dir: /app
+    command: mvn clean install
+  java:
+    image: "pricertest"
+    build:
+        context: .
+    depends_on:
+      - maven
+volumes:
+  maven-repository:
